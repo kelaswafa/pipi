@@ -55,9 +55,9 @@ jobs:
         with:
           name: docker_pipi_${{ steps.vars.outputs.tag }}
           path: pipi__${{ steps.vars.outputs.tag }}.tar
-      - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          args: pipi__${{ steps.vars.outputs.tag }}.tar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: pipi__${{ steps.vars.outputs.tag }}.tar
